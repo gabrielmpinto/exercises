@@ -15,6 +15,29 @@ public class Utils {
                 .collect(Collectors.toMap(KeyValue::getKey, KeyValue::getValue, (o1, o2) -> o2));
     }
 
+    public static String mostUsedValue(Map<String, String> map) {
+        if (map == null) {
+            return null;
+        }
+
+        HashMap<String, Integer> frequencyMap = new HashMap<>();
+
+        for (String value : map.values()) {
+            frequencyMap.put(value, frequencyMap.getOrDefault(value, 0) + 1);
+        }
+
+        String maxValue = null;
+        int maxValueFrequency = -1;
+        for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() > maxValueFrequency) {
+                maxValue = entry.getKey();
+                maxValueFrequency = entry.getValue();
+            }
+        }
+
+        return maxValue;
+    }
+
     static class KeyValue {
         public String key;
         public String value;

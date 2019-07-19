@@ -4,10 +4,11 @@ package com.gmp.sr;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class UtilsTest {
 
@@ -53,5 +54,37 @@ public class UtilsTest {
         assertEquals(1, map.size());
         assertTrue(map.containsKey("key"));
         assertEquals("value2", map.get("key"));
+    }
+
+    @Test
+    public void mostUsedNull() {
+        assertNull(Utils.mostUsedValue(null));
+    }
+
+    @Test
+    public void mostUsedEmpty() {
+        assertNull(Utils.mostUsedValue(Collections.emptyMap()));
+    }
+
+    @Test
+    public void mostUsed() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("key1", "value1");
+        map.put("key2", "value1");
+        map.put("key3", "value2");
+        map.put("key4", "value2");
+        map.put("key5", "value2");
+        assertEquals("value2", Utils.mostUsedValue(map));
+    }
+
+    @Test
+    public void mostUsedEqual() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("key1", "value1");
+        map.put("key2", "value2");
+        map.put("key3", "value3");
+        map.put("key4", "value4");
+        map.put("key5", "value5");
+        assertEquals("value5", Utils.mostUsedValue(map));
     }
 }
